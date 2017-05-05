@@ -36,4 +36,11 @@ class Model
         $cat->setId($id);
         return $success;
     }
+
+    public function deleteCat($id)
+    {
+        $delete_stm = $this->db->prepare("DELETE FROM `cats` WHERE id = :id");
+        $delete_stm->execute([':id' => $id]);
+        return $delete_stm;
+    }
 }
