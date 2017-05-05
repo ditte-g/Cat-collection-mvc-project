@@ -3,19 +3,25 @@
 class Controller
 {
     private $model;
-    private $cat;
-    public function __construct(PDO $db, $cat)
+
+    public function __construct(PDO $db)
     {
         $this->model = new Model($db);
-        $this->cat = new Cat($cat);
     }
+
     public function index()
     {
         $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($page))
-            require_once('view/view.php');
+            require('view/view.php');
         elseif ($page === "cat") {
-            require_once('view/view.php');
+            require('view/view.php');
+        } elseif ($page === 'create') {
+            require('model/create.php');
+        } elseif ($page === 'add') {
+            $cat = new Cat($_POST['name'], $_POST['birthday'], $_POST['breed']);
+            $success = $this->createCat($cat);
+            header('Location: /index.php');
         } else {
 
         }
@@ -27,16 +33,8 @@ class Controller
 
     }
 
-    public function createCat()
+    public function createCat(Cat $cat)
     {
-        if (isset($_POST['name'])) {
-            $name = $_POST['name'];
-            $this->cat->setName($name);
-            $birthday = $_POST['birthday'];
-            $this->cat->setBirthday($birthday);
-            $breed = $_POST['breed'];
-            $this->cat->setBreed($breed);
-        }
-        return $this->model->createCat($name, $birthday, $breed);
+        return $this->model->createCat($cat);
     }
 }
