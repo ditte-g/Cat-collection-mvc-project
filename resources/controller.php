@@ -4,9 +4,10 @@ class Controller
 {
     private $model;
     private $cat;
-    public function __construct(PDO $db)
+    public function __construct(PDO $db, $cat)
     {
         $this->model = new Model($db);
+        $this->cat = new Cat($cat);
     }
     public function index()
     {
@@ -24,5 +25,18 @@ class Controller
     {
         return $this->model->getAllNames();
 
+    }
+
+    public function createCat()
+    {
+        if (isset($_POST['name'])) {
+            $name = $_POST['name'];
+            $this->cat->setName($name);
+            $birthday = $_POST['birthday'];
+            $this->cat->setBirthday($birthday);
+            $breed = $_POST['breed'];
+            $this->cat->setBreed($breed);
+        }
+        return $this->model->createCat($name, $birthday, $breed);
     }
 }
