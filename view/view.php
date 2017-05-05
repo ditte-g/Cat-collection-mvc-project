@@ -4,12 +4,12 @@ require('header.php');
 
     <div class="container">
         <div class="row">
-
-
             <div class="col-md-10">
                 <h2>My Cat Collection</h2>
                 <div class="table-responsive">
-
+                    <button type="button" class="btn btn-success btn pull-right" data-title="Add" data-toggle="modal"
+                            data-target="#add"><span
+                                class="glyphicon glyphicon-plus"></span> Add a cat</span></button>
 
                     <table id="mytable" class="table table-bordred table-striped">
 
@@ -58,6 +58,10 @@ require('header.php');
     </div>
 
 
+    <form action="/index.php?page=add" method="post">
+        <?php require('create.php') ?>
+    </form>
+
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -75,7 +79,7 @@ require('header.php');
                         <input class="form-control " type="date" placeholder="Birthday">
                     </div>
                     <div class="form-group">
-                        <textarea rows="2" class="form-control" placeholder="Breed"></textarea>
+                        <input class="form-control" type="text" placeholder="Breed">
 
 
                     </div>
