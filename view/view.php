@@ -106,11 +106,13 @@ require('header.php');
 
                 </div>
                 <div class="modal-footer ">
-                    <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes
-                    </button>
+                    <form action="index.php?page=view" method="post">
+                        <input type="hidden" name="delete" value="<?php echo $cat->getId(); ?>"/>
+                        <button type="submit" class="btn btn-success" name="btn-delete"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+
                     <button type="button" class="btn btn-default" data-dismiss="modal" name="btn-delete"><span
                                 class="glyphicon glyphicon-remove"></span> No
-                    </button>
+                    </button></form>
                 </div>
             </div>
         </div>
