@@ -18,17 +18,22 @@ class Model
         $read_stm->setFetchMode(PDO:: FETCH_ASSOC);
         $cat = $read_stm->fetchAll();
         $cat = array_map(function ($item) {
-            return new
-            Cat($item['id'], $item['name'], $item['birthday'], $item['breed']);
+            $cat = new Cat($item['name'], $item['birthday'], $item['breed']);
+            $cat->setId($item['id']);
+            return $cat;
         }, $cat);
         return $cat;
     }
 
-    public function createCat($name, $birthday, $breed)
+    public function createCat(Cat $cat)
     {
-        $create_stm = $this->db->prepare("INSERT INTO `cats` (`name`, `birthday`, `breed`) VALUES(:name, :birthday, :breed)");
-        $create_stm->execute(['name' => $name, 'birthday' => $birthday, 'breed' => $breed]);
-        return $create_stm;
-
+        $create_stm = $this->db->prepare('INSERT INTO `cats` (`name`, `birthday`, `breed`) VALUES (:name, :birthday, :breed)');
+        $create_stm->bindValue(':name', $cat->getName());
+        $create_stm->bindValue(':birthday', $cat->getBirthday());
+        $create_stm->bindValue(':breed', $cat->getBreed());
+        $success = $create_stm->execute();
+        $id = $this->db->lastInsertId();
+        $cat->setId($id);
+        return $success;
     }
 }
