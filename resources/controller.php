@@ -14,7 +14,13 @@ class Controller
         $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($page))
             require('view/view.php');
-        elseif ($page === "cat") {
+        elseif ($page === "view") {
+            if (isset($_POST['delete'])) {
+                $id = $_POST['delete'];
+                $this->deleteCat($id);
+                header('Location: /index.php');
+                exit();
+            }
             require('view/view.php');
         } elseif ($page === 'create') {
             require('model/create.php');
@@ -37,4 +43,10 @@ class Controller
     {
         return $this->model->createCat($cat);
     }
+
+    public function deleteCat($id)
+    {
+        return $this->model->deleteCat($id);
+    }
 }
+
