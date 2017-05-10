@@ -2,14 +2,12 @@
 
 class Model
 {
-
     private $db;
 
     public function __construct(Database $db)
     {
         $this->db = $db;
     }
-
 
     public function getAllNames()
     {
@@ -22,6 +20,18 @@ class Model
             $cat->setId($item['id']);
             return $cat;
         }, $cat);
+        return $cat;
+    }
+
+    public function getById($id)
+    {
+        $get_stm = $this->db->prepare('SELECT * FROM `cats` WHERE id = :id');
+        $get_stm->bindValue(':id', $id);
+        $get_stm->execute();
+        $get_stm->setFetchMode(PDO:: FETCH_ASSOC);
+        $result = $get_stm->fetch();
+        $cat = new Cat($result['name'], $result['birthday'], $result['breed']);
+        $cat->setId($result['id']);
         return $cat;
     }
 
@@ -42,5 +52,15 @@ class Model
         $delete_stm = $this->db->prepare("DELETE FROM `cats` WHERE id = :id");
         $delete_stm->execute([':id' => $id]);
         return $delete_stm;
+    }
+
+    public function updateCat($cat)
+    {
+        $update_stm = $this->db->prepare('UPDATE `cats` SET `name`=:name, `birthday`=:birthday, `breed`=:breed WHERE `id`=:id');
+        $update_stm->bindValue(":id", $cat->getId());
+        $update_stm->bindValue(":name", $cat->getName());
+        $update_stm->bindValue(":birthday", $cat->getBirthday());
+        $update_stm->bindValue(":breed", $cat->getBreed());
+        return $update_stm->execute();
     }
 }

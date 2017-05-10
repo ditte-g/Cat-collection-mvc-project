@@ -1,16 +1,17 @@
 <?php
 
-class Cat {
-
+class Cat
+{
     private $id;
     private $name;
     private $birthday;
     private $breed;
 
-    function __construct($name, $birthday, $breed) {
-        $this->name 	= $name;
-        $this->birthday	= $birthday;
-        $this->breed 	= $breed;
+    function __construct($name, $birthday, $breed)
+    {
+        $this->name = $name;
+        $this->birthday = $birthday;
+        $this->breed = $breed;
     }
 
     public function getId()
