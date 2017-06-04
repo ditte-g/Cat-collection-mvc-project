@@ -1,6 +1,6 @@
 <?php
-require ('resources/db.php');
-require ('resources/controller.php');
+require('model/Database.php');
+require('controller/Controller.php');
 require ('model/model.php');
 require ('model/cat.php');
 
