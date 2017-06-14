@@ -1,0 +1,29 @@
+@container-background: rgba(255, 255, 255, 0.75);
+@site-background: #ffffff;
+@h1-font: 'Barrio', cursive;
+
+.container {
+  background-color: @container-background;
+  margin-top: 15px;
+  width: 80%;
+  padding-bottom: 20px;
+}
+
+body {
+  background-image: url("../img/bg.png");
+  background-repeat: repeat;
+}
+
+.table-striped > tbody {
+  tr:nth-of-type(even) {
+    background-color: rgba(255, 243, 240, 0.7);
+  }
+  tr:nth-of-type(odd) {
+    background-color: rgba(249, 249, 249, 0.7);
+  }
+}
+
+h1 {
+  font-family: @h1-font;
+  text-shadow: 1.5px 1.5px rgb(53, 169, 187);
+}
