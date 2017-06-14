@@ -28,7 +28,7 @@ class Controller
         } elseif ($page === 'create_owner') {
             require('view/create_owner.php');
         } elseif ($page === 'add2') {
-            $owner = new Owner($_POST['ownerName'], $_POST['cats_id']);
+            $owner = new Owner($_POST['cats_id'], $_POST['ownerName']);
             $success = $this->createOwner($owner);
             header('Location: /index.php');
         } elseif ($page === 'delete') {
