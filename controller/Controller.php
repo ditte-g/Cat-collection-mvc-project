@@ -9,6 +9,9 @@ class Controller
         $this->model = new Model($db);
     }
 
+    /**
+     *
+     */
     public function index()
     {
         $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -21,6 +24,12 @@ class Controller
         } elseif ($page === 'add') {
             $cat = new Cat($_POST['name'], $_POST['birthday'], $_POST['breed']);
             $success = $this->createCat($cat);
+            header('Location: /index.php');
+        } elseif ($page === 'create_owner') {
+            require('view/create_owner.php');
+        } elseif ($page === 'add2') {
+            $owner = new Owner($_POST['ownerName'], $_POST['cats_id']);
+            $success = $this->createOwner($owner);
             header('Location: /index.php');
         } elseif ($page === 'delete') {
             $id = $_GET['id'];
@@ -60,6 +69,11 @@ class Controller
     public function createCat(Cat $cat)
     {
         return $this->model->createCat($cat);
+    }
+
+    public function createOwner(Owner $owner)
+    {
+        return $this->model->createOwner($owner);
     }
 
     public function deleteCat($id)
