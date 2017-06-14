@@ -47,6 +47,17 @@ class Model
         return $success;
     }
 
+    public function createOwner(Owner $owner)
+    {
+        $createOwner_stm = $this->db->prepare('INSERT INTO `owner` (`cats_id`, `owner_name`) VALUES (:cats_id, :ownerName)');
+        $createOwner_stm->bindValue(':cats_id', $owner->getCatId());
+        $createOwner_stm->bindValue(':ownerName', $owner->getOwnerName());
+        $success = $createOwner_stm->execute();
+        $id = $this->db->lastInsertId();
+        $owner->setId($id);
+        return $success;
+    }
+
     public function deleteCat($id)
     {
         $delete_stm = $this->db->prepare("DELETE FROM `cats` WHERE id = :id");
