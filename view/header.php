@@ -11,8 +11,10 @@
 
     <title>Cat collection</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="/css/styles.less" />
+    <link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
 </head>
 
 <body>
