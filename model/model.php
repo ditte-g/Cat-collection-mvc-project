@@ -23,13 +23,6 @@ class Model
         return $cat;
     }
 
-    public function getOwnerId($id)
-    {
-        $stm = $this->db->prepare('SELECT * FROM `owner` WHERE `cats_id` = :id');
-        $success = $stm->execute([':id' => $id]);
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function getOwner()
     {
         $read_stm = $this->db->prepare('SELECT * FROM `owner`');
