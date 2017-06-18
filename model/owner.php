@@ -42,4 +42,5 @@ class Owner
     {
         $this->owner_name = $owner_name;
     }
+
 }
