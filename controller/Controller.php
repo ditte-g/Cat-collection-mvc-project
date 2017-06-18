@@ -19,6 +19,8 @@ class Controller
             require('view/view.php');
         elseif ($page === "view") {
             require('view/view.php');
+        } elseif ($page === "owner") {
+            require('view/view_owner.php');
         } elseif ($page === 'create') {
             require('view/create.php');
         } elseif ($page === 'add') {
@@ -36,6 +38,11 @@ class Controller
             $this->deleteCat($id);
             header('Location: /index.php');
             exit();
+        } elseif ($page === 'deleteOwner') {
+            $id = $_GET['id'];
+            $this->deleteOwner($id);
+            header('Location: /index.php');
+            exit();
         } elseif ($page === 'update') {
             if (!empty($_POST)) {
                 $cat = $this->getById($_POST['id']);
@@ -50,6 +57,18 @@ class Controller
                 $cat = $this->getById($id);
                 require('view/update.php');
             }
+        } elseif ($page === 'updateOwner') {
+            if (!empty($_POST)) {
+                $owner = $this->getByOwnerId($_POST['id']);
+                $owner->setOwnerName($_POST['ownerName']);
+                $this->updateOwner($owner);
+                header('Location: /index.php');
+                exit();
+            } else {
+                $id = $_GET['id'];
+                $owner = $this->getByOwnerId($id);
+                require('view/update_owner.php');
+            }
         } else {
         }
     }
@@ -60,9 +79,25 @@ class Controller
         return $this->model->getById($id);
     }
 
+    public function getByOwnerId($id)
+    {
+        return $this->model->getByOwnerId($id);
+    }
+
+    public function getOwnerId($id)
+    {
+        return $this->model->getOwnerId($id);
+    }
+
     public function getAllCats()
     {
         return $this->model->getAllNames();
+
+    }
+
+    public function getOwner()
+    {
+        return $this->model->getOwner();
 
     }
 
@@ -81,9 +116,19 @@ class Controller
         return $this->model->deleteCat($id);
     }
 
+    public function deleteOwner($id)
+    {
+        return $this->model->deleteOwner($id);
+    }
+
     public function updateCat($cat)
     {
         return $this->model->updateCat($cat);
+    }
+
+    public function updateOwner($owner)
+    {
+        return $this->model->updateOwner($owner);
     }
 }
 
